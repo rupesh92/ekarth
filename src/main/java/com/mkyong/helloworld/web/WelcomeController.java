@@ -50,4 +50,11 @@ public class WelcomeController {
 
 	}
 
+	@RequestMapping(value = "testing", method= RequestMethod.GET)
+	public String hellojava(@PathVariable("name") String name) {
+
+		return "Testing";
+
+	}
+
 }
