@@ -3,7 +3,7 @@
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<display-name>Gradle + Spring MVC Hello World + XML</display-name>
+	<display-name>Shiwangi first spring web-app</display-name>
 	<description>Spring MVC web application</description>
 
 	<!-- For web context -->
@@ -21,7 +21,6 @@
 		<servlet-name>hello-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
 	<!-- For root context -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
