@@ -19,8 +19,6 @@ sourceCompatibility = 1.8
 version = '1.0'
 // War file name
 war.baseName = 'jcg-gradle-war-example'
-// Web directory, this overrides the default value "webapp"
-project.webAppDirName = 'WebContent'
 
 repositories {
     mavenLocal()
