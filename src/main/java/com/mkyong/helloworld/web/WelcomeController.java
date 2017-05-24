@@ -2,13 +2,13 @@ package com.mkyong.helloworld.web;
 
 import java.util.Map;
 
+import com.mkyong.helloworld.dao.impl.JdbcCustomerDAO;
+import com.mkyong.helloworld.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mkyong.helloworld.service.HelloWorldService;
@@ -19,6 +19,7 @@ public class WelcomeController {
 	private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 	private final HelloWorldService helloWorldService;
 
+	JdbcCustomerDAO jdbcCustomerDAO = new JdbcCustomerDAO();
 	@Autowired
 	public WelcomeController(HelloWorldService helloWorldService) {
 		this.helloWorldService = helloWorldService;
@@ -50,11 +51,24 @@ public class WelcomeController {
 
 	}
 
-	@RequestMapping(value = "testing", method= RequestMethod.GET)
-	public String hellojava(@PathVariable("name") String name) {
-
-		return "Testing";
+	@RequestMapping(value = "/api/testing", method= RequestMethod.GET)
+	@ResponseBody
+	public Customer hellojava() {
+		Customer customer = new Customer(5, "Shiwangi", 24);
+		jdbcCustomerDAO.insert(customer);
+		return customer;
 
 	}
+
+	@RequestMapping(value = "/api/v1/login", method = RequestMethod.POST)
+	@ResponseBody
+    public String login(@RequestParam("username") String username,
+						@RequestParam("password") String password) {
+
+		if (username != null) {
+			return username + password;
+		}
+		return "sff";
+    }
 
 }
