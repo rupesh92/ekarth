@@ -54,7 +54,7 @@ public class WelcomeController {
 	@RequestMapping(value = "/api/testing", method= RequestMethod.GET)
 	@ResponseBody
 	public Customer hellojava() {
-		Customer customer = new Customer(5, "Shiwangi", 24);
+		Customer customer = new Customer(8, "Shiwangi", 24);
 		jdbcCustomerDAO.insert(customer);
 		return customer;
 

@@ -12,9 +12,12 @@ public class JdbcManager {
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:8080/belsio?" + "user=root&password=spring");
+            Class.forName("com.mysql.jdbc.Driver");
+            conn =  DriverManager.getConnection("jdbc:mysql://localhost:8080/belsio?" + "user=root&password=spring");
             conn.setAutoCommit(false);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return conn;

@@ -13,12 +13,18 @@ import java.sql.*;
 
 public class JdbcCustomerDAO implements CustomerDAO
 {
+    private DataSource dataSource;
+//    public void setDataSource(DataSource dataSource) throws SQLException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+//        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+//        Class.forName("com.mysql.jdbc.Driver").newInstance();
+//        this.dataSource = dataSource;
+//    }
 
     public void insert(Customer customer){
 
         String sql = "INSERT INTO CUSTOMER " +
                 "(CUST_ID, NAME, AGE) VALUES (?, ?, ?)";
-        Connection conn = JdbcManager.getConnection();
+        Connection conn = JdbcManager.getConnection();;
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -27,7 +33,6 @@ public class JdbcCustomerDAO implements CustomerDAO
             ps.setInt(3, customer.getAge());
             ps.executeUpdate();
             ps.close();
-            conn.commit();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
