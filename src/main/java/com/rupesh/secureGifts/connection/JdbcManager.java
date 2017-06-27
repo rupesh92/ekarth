@@ -1,4 +1,4 @@
-package com.mkyong.helloworld.connection;
+package com.rupesh.secureGifts.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
