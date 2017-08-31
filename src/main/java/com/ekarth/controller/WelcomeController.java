@@ -58,7 +58,8 @@ public class WelcomeController {
 	@RequestMapping(value = "/signup", method= RequestMethod.GET)
 	@ResponseBody
 	public String signup() {
-		User user = new User(1,"hi",23);
+		User user = new User(1,"sachinta","Levis", "shiwangishah93@gmail.com",
+				"8348804751");
 		userDAO.insert(user);
 		return "success";
 

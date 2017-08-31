@@ -19,11 +19,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
             
 
             UserDAO customerDAO = (UserDAO) context.getBean("customerDAO");
-            User customer = new User(1, "shiwangi",28);
-            customerDAO.insert(customer);
 
-            User customer1 = customerDAO.findByCustomerId(1);
-            System.out.println(customer1);
 
         }
     }

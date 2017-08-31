@@ -13,6 +13,8 @@ public class User {
 
     int custId;
     String name;
-    int age;
+    String companyName;
+    String contactNumber;
+    String emailId;
 
 }
