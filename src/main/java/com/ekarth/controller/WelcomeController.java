@@ -1,10 +1,8 @@
 package com.ekarth.controller;
 
-import java.util.Map;
-
-import com.ekarth.model.User;
-import com.ekarth.service.HelloWorldService;
 import com.ekarth.dao.JdbcUserDAO;
+import com.ekarth.model.Customer;
+import com.ekarth.service.HelloWorldService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 @Controller
 public class WelcomeController {
@@ -60,7 +60,7 @@ public class WelcomeController {
 	public String signup() {
 		
 		//TODO: Show a form on this link. and from the input - on form submit update the table (React)
-		User user = new User(1,"sachinta","Levis", "shiwangishah93@gmail.com",
+		Customer user = new Customer(1,"sachinta","Levis", "shiwangishah93@gmail.com",
 				"8348804751");
 		userDAO.insert(user);
 		return "success";

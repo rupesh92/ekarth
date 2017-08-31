@@ -22,6 +22,8 @@
                 
         );
 
+        ALTER CUSTOMER ADD PASSWORD_DIGEST VARCHAR(100);
+
 
 <strong> Update password SQL </strong>
 

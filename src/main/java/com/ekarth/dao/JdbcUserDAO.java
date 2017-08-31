@@ -3,15 +3,15 @@ package com.ekarth.dao;
 /**
  * Created by shiwang on 5/23/17.
  */
-import com.ekarth.model.User;
+import com.ekarth.model.Customer;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.sql.DataSource;
 
-public class JdbcUserDAO implements UserDAO
+public class JdbcUserDAO implements CustomerDAO
 {
     private DataSource dataSource;
 
@@ -19,7 +19,7 @@ public class JdbcUserDAO implements UserDAO
         this.dataSource = dataSource;
     }
 
-    public void insert(User customer){
+    public void insert(Customer customer){
 
         String sql = "INSERT INTO CUSTOMER " +
                 "(CUST_ID, NAME, COMPANY_NAME, EMAIL_ID, CONTACT_NUMBER) VALUES (?, ?, ?, ?, ?)";
@@ -57,7 +57,7 @@ public class JdbcUserDAO implements UserDAO
         }
     }
 
-    public User findByCustomerId(int custId){
+    public Customer findByCustomerId(int custId){
 
         String sql = "SELECT * FROM CUSTOMER WHERE CUST_ID = ?";
 
@@ -67,10 +67,10 @@ public class JdbcUserDAO implements UserDAO
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, custId);
-            User customer = null;
+            Customer customer = null;
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                customer = new User(
+                customer = new Customer(
                         rs.getInt("CUST_ID"),
                         rs.getString("NAME"),
                         rs.getString("COMPANY_NAME"),

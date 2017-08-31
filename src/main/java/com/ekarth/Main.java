@@ -1,7 +1,6 @@
 package com.ekarth;
 
-import com.ekarth.model.User;
-import com.ekarth.dao.UserDAO;
+import com.ekarth.dao.CustomerDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,7 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
                     new ClassPathXmlApplicationContext("spring-core-config.xml");
             
 
-            UserDAO customerDAO = (UserDAO) context.getBean("customerDAO");
+            CustomerDAO customerDAO = (CustomerDAO) context.getBean("customerDAO");
 
 
         }

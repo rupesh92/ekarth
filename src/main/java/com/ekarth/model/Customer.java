@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class User {
+public class Customer {
 
     int custId;
     String name;
