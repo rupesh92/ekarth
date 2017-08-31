@@ -1,10 +1,10 @@
-package com.samplelogin.ekarth.web;
+package com.ekarth.controller;
 
 import java.util.Map;
 
-import com.samplelogin.ekarth.pojo.JdbcUserDAO;
-import com.samplelogin.ekarth.pojo.User;
-import com.samplelogin.ekarth.service.HelloWorldService;
+import com.ekarth.model.User;
+import com.ekarth.service.HelloWorldService;
+import com.ekarth.dao.JdbcUserDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

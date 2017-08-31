@@ -1,4 +1,6 @@
-package com.samplelogin.ekarth.pojo;
+package com.ekarth.dao;
+
+import com.ekarth.model.User;
 
 /**
  * Created by shiwang on 5/23/17.

@@ -1,8 +1,10 @@
-package com.samplelogin.ekarth.pojo;
+package com.ekarth.dao;
 
 /**
  * Created by shiwang on 5/23/17.
  */
+import com.ekarth.model.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,14 +24,6 @@ public class JdbcUserDAO implements UserDAO
         String sql = "INSERT INTO CUSTOMER " +
                 "(CUST_ID, NAME, AGE) VALUES (?, ?, ?)";
         Connection conn = null;
-        /*
-        CREATE TABLE CUSTOMER(
-                CUST_ID   INT NOT NULL AUTO_INCREMENT,
-                NAME VARCHAR(40) NOT NULL,
-                AGE  INT NOT NULL,
-                PRIMARY KEY (CUST_ID)
-        );
-        */
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);

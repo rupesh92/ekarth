@@ -1,7 +1,7 @@
-package com.samplelogin.ekarth;
+package com.ekarth;
 
-import com.samplelogin.ekarth.pojo.User;
-import com.samplelogin.ekarth.pojo.UserDAO;
+import com.ekarth.model.User;
+import com.ekarth.dao.UserDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

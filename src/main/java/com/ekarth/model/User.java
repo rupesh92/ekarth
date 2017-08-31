@@ -1,4 +1,4 @@
-package com.samplelogin.ekarth.pojo;
+package com.ekarth.model;
 
 
 import lombok.AllArgsConstructor;
@@ -14,6 +14,5 @@ public class User {
     int custId;
     String name;
     int age;
-
 
 }
