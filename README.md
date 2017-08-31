@@ -1,12 +1,12 @@
 <strong> Create db : </strong>
 
-CREATE ekarth;
+      CREATE ekarth;
 
-use ekarth;
+      use ekarth;
 
 <strong> Create user table </strong>
 
-CREATE TABLE CUSTOMER(
+       CREATE TABLE CUSTOMER(
 
                 CUST_ID   INT NOT NULL AUTO_INCREMENT,
                 
@@ -21,18 +21,18 @@ CREATE TABLE CUSTOMER(
                 PRIMARY KEY (CUST_ID)
                 
         );
-        
-        
+
+
 <strong> Update password SQL </strong>
 
-sudo /usr/local/mysql/bin/mysqld_safe --skip-grant-tables
+        sudo /usr/local/mysql/bin/mysqld_safe --skip-grant-tables
 
-$ mysql -u root
+        $ mysql -u root
 
-mysql> USE mysql;
+        mysql> USE mysql;
 
-mysql> UPDATE user SET authentication_string=PASSWORD("XXXXXXX") WHERE User='root';
+        mysql> UPDATE user SET authentication_string=PASSWORD("XXXXXXX") WHERE User='root';
 
-mysql> FLUSH PRIVILEGES;
+        mysql> FLUSH PRIVILEGES;
 
-mysql> quit
+        mysql> quit
