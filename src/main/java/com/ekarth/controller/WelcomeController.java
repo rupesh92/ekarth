@@ -58,6 +58,8 @@ public class WelcomeController {
 	@RequestMapping(value = "/signup", method= RequestMethod.GET)
 	@ResponseBody
 	public String signup() {
+		
+		//TODO: Show a form on this link. and from the input - on form submit update the table (React)
 		User user = new User(1,"sachinta","Levis", "shiwangishah93@gmail.com",
 				"8348804751");
 		userDAO.insert(user);
