@@ -91,5 +91,10 @@ public class JdbcUserDAO implements CustomerDAO
             }
         }
     }
+
+    @Override
+    public String signUp(Customer customer) {
+        return null;
+    }
 }
 
