@@ -1,6 +1,5 @@
 package com.ekarth.service;
 
-import com.ekarth.dao.JdbcUserDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.util.StringUtils;
 
 @Service
 public class HelloWorldService {
-	@Autowired
-	JdbcUserDAO userDAO;
 
 	private static final Logger logger = LoggerFactory.getLogger(HelloWorldService.class);
 

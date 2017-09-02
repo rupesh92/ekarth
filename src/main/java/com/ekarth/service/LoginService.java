@@ -1,6 +1,5 @@
 package com.ekarth.service;
 
-import com.ekarth.dao.CustomerDAO;
 import com.ekarth.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
 
-    @Autowired
-    CustomerDAO customerDAO;
-
-    public String signUp(Customer customer) {
-        return customerDAO.signUp(customer);
-    }
+//    @Autowired
+//    CustomerDAO customerDAO;
+//
+//    public String signUp(Customer customer) {
+//        return customerDAO.signUp(customer);
+//    }
 }

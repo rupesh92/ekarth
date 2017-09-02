@@ -14,10 +14,11 @@ public class LoginController {
 
     @Autowired
     LoginService loginService;
-    @RequestMapping(value = "/signup", method= RequestMethod.POST)
+    @RequestMapping(value = "/signuprupa", method= RequestMethod.POST)
     @ResponseBody
     public String signup(@RequestBody Customer customer) {
-        return loginService.signUp(customer);
+        //return loginService.signUp(customer);
+        return "";
     }
 
 }
