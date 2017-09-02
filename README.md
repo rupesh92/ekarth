@@ -42,7 +42,7 @@
                 
                 NAME VARCHAR(40) NOT NULL,
                 
-                VALUES VARCHAR(400),
+                PROPERTY_VALUES VARCHAR(80),
                 
                 PRIMARY KEY (PROPERTY_ID)
                 
@@ -70,7 +70,7 @@
                 
                 PROPERTY_ID INT NOT NULL,
                 
-                VALUE VARCHAR(40) NOT NULL
+                PROPERTY_VALUE VARCHAR(40) NOT NULL
                 
         );
         
