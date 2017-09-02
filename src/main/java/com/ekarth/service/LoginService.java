@@ -1,9 +1,10 @@
 package com.ekarth.service;
 
+import com.ekarth.dao.CustomerDAO;
 import com.ekarth.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 /**
  * Created by rupesh on 01/09/17.
  */
@@ -12,10 +13,52 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
 
-//    @Autowired
-//    CustomerDAO customerDAO;
-//
-//    public String signUp(Customer customer) {
-//        return customerDAO.signUp(customer);
-//    }
+    @Autowired
+    CustomerDAO customerDAO;
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    public String signUp(String name, String companyName, String contactNumber, String emailId, String password) {
+        validateCompanyNameNonExistence(companyName);
+        validateEmailNonExistence(emailId);
+        String passwordDigest = getEncryptedPassword(password);
+        customerDAO.insert(name, companyName, contactNumber, emailId, passwordDigest);
+        return "success";
+    }
+
+    private String getEncryptedPassword(String password) {
+        String passwordDigest = bCryptPasswordEncoder.encode(password);
+        System.out.println("Password: " + password + " Encoded Pass: " + passwordDigest);
+        return passwordDigest;
+    }
+
+    private void validateEmailNonExistence(String emailId) {
+        try {
+            if (customerDAO.getCustomerFromEmailId(emailId) != null ) {
+                throw new RuntimeException("Email ID " + emailId + " already exists");
+            }
+        } catch (Exception e) {
+            return;
+        }
+    }
+
+    private void validateCompanyNameNonExistence(String companyName) {
+        try {
+            if (customerDAO.getCustomerFromCompanyName(companyName) != null ) {
+                throw new RuntimeException("Company Name " + companyName + " already exists");
+            }
+        } catch (Exception e) {
+            return;
+        }
+    }
+
+    public Customer login(String companyName, String password) {
+        String passwordDigest = getEncryptedPassword(password);
+        Customer customer = customerDAO.getCustomerFromCompanyName(companyName);
+
+        if (!bCryptPasswordEncoder.matches(password, customer.getPasswordDigest())) {
+            throw new RuntimeException("Incorrect Company Name or Password");
+        }
+        return customer;
+
+    }
 }

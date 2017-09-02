@@ -1,7 +1,6 @@
 package com.ekarth.controller;
 
-import com.ekarth.dao.DatabaseInserter;
-import com.ekarth.model.Customer;
+import com.ekarth.dao.CustomerDAO;
 import com.ekarth.service.HelloWorldService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,14 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,6 +18,8 @@ public class WelcomeController {
 	private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 	private final HelloWorldService helloWorldService;
 
+	@Autowired
+    CustomerDAO userDAO;
 
 	@Autowired
 	public WelcomeController(HelloWorldService helloWorldService) {
@@ -57,23 +51,23 @@ public class WelcomeController {
 		return model;
 
 	}
-
-	@RequestMapping(value = "/signup", method= RequestMethod.GET)
-	@ResponseBody
-	public String signup() throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
-		
-		//TODO: Show a form on this link. and from the input - on form submit update the table (React)
-		Customer user = new Customer(1,"sachinta","Levis", "shiwangishah93@gmail.com",
-				"8348804751", "testPass");
-
-		DatabaseInserter<Customer> inserter = new DatabaseInserter<Customer>(
-
-				Customer.class);
-		List<Customer> list = new ArrayList<>();
-		list.add(user);
-		inserter.insertObjects(list);
-		return "success";
-
-	}
+//
+//	@RequestMapping(value = "/signup", method= RequestMethod.GET)
+//	@ResponseBody
+//	public String signup() throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
+//
+//		//TODO: Show a form on this link. and from the input - on form submit update the table (React)
+//		Customer user = new Customer(1,"sachinta","Levis", "shiwangishah93@gmail.com",
+//				"8348804751", "testPass");
+//
+//		DatabaseInserter<Customer> inserter = new DatabaseInserter<Customer>(
+//
+//				Customer.class);
+//		List<Customer> list = new ArrayList<>();
+//		list.add(user);
+//		inserter.insertObjects(list);
+//		return "success";
+//
+//	}
 
 }
