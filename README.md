@@ -3,7 +3,12 @@
       CREATE ekarth;
 
       use ekarth;
+      
+<strong> delete table </strong>
 
+      DROP TABLE CUSTOMER;
+      
+      
 <strong> Create user table </strong>
 
        CREATE TABLE CUSTOMER(
