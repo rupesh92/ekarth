@@ -16,5 +16,6 @@ public class Customer {
     String companyName;
     String contactNumber;
     String emailId;
+    String passwordDigest;
 
 }

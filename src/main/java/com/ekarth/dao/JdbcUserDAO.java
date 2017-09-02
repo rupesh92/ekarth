@@ -22,7 +22,7 @@ public class JdbcUserDAO implements CustomerDAO
     public void insert(Customer customer){
 
         String sql = "INSERT INTO CUSTOMER " +
-                "(CUST_ID, NAME, COMPANY_NAME, EMAIL_ID, CONTACT_NUMBER) VALUES (?, ?, ?, ?, ?)";
+                "(CUST_ID, NAME, COMPANY_NAME, EMAIL_ID, CONTACT_NUMBER, PASSWORD_DIGEST) VALUES (?, ?, ?, ?, ?, ?)";
         Connection conn = null;
         /*
         CREATE TABLE CUSTOMER(
@@ -42,6 +42,7 @@ public class JdbcUserDAO implements CustomerDAO
             ps.setString(3, customer.getCompanyName());
             ps.setString(4, customer.getEmailId());
             ps.setString(5, customer.getContactNumber());
+            ps.setString(6, customer.getPasswordDigest());
             ps.executeUpdate();
             ps.close();
 
@@ -75,7 +76,8 @@ public class JdbcUserDAO implements CustomerDAO
                         rs.getString("NAME"),
                         rs.getString("COMPANY_NAME"),
                         rs.getString("EMAIL_ID"),
-                        rs.getString("CONTACT_NUMBER")
+                        rs.getString("CONTACT_NUMBER"),
+                        rs.getString("PASSWORD_DIGEST")
                 );
             }
             rs.close();

@@ -61,7 +61,7 @@ public class WelcomeController {
 		
 		//TODO: Show a form on this link. and from the input - on form submit update the table (React)
 		Customer user = new Customer(1,"sachinta","Levis", "shiwangishah93@gmail.com",
-				"8348804751");
+				"8348804751", "testPass");
 		userDAO.insert(user);
 		return "success";
 
