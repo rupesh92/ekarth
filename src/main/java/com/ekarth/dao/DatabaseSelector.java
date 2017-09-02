@@ -1,10 +1,6 @@
 package com.ekarth.dao;
 
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import javax.sql.DataSource;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -18,13 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * Class that creates a list of <T>s filled with values from the corresponding
  * database-table.
  *
- * @author Tino for http://www.java-blog.com
- *
  * @param <T>
+ * @author shiwang
  */
 
 public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
@@ -54,8 +48,7 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
      * database-table
      *
      * @return List of <T>s filled with values from the corresponding
-     *         database-table
-     *
+     * database-table
      * @throws SQLException
      * @throws SecurityException
      * @throws IllegalArgumentException
@@ -84,21 +77,18 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
             if (connection != null) {
                 try {
                     connection.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
         }
     }
 
     /**
-     *
      * Creates a list of <T>s filled with values from the provided ResultSet
      *
-     * @param resultSet
-     *            ResultSet that contains the result of the
-     *            database-select-query
-     *
+     * @param resultSet ResultSet that contains the result of the
+     *                  database-select-query
      * @return List of <T>s filled with values from the provided ResultSet
-     *
      * @throws SecurityException
      * @throws IllegalArgumentException
      * @throws SQLException

@@ -14,9 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
             String relativeDir = "/src/main/webapp/WEB-INF/spring-datasource.xml";
             ApplicationContext context =
                     new ClassPathXmlApplicationContext("spring-core-config.xml");
-            
-//
-//            CustomerDAO customerDAO = (CustomerDAO) context.getBean("customerDAO");
+
 
 
         }
