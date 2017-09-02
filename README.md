@@ -8,77 +8,77 @@
 
        CREATE TABLE CUSTOMER(
 
-                CUST_ID   INT NOT NULL AUTO_INCREMENT,
+                custId   INT NOT NULL AUTO_INCREMENT,
                 
-                NAME VARCHAR(40) NOT NULL,
+                name VARCHAR(40) NOT NULL,
                 
-                COMPANY_NAME VARCHAR(40) NOT NULL,
+                companyName VARCHAR(40) NOT NULL,
                 
-                EMAIL_ID VARCHAR(40) NOT NULL,
+                emailId VARCHAR(40) NOT NULL,
                 
-                CONTACT_NUMBER VARCHAR(40) NOT NULL,
+                contactNumber VARCHAR(40) NOT NULL,
                 
-                PRIMARY KEY (CUST_ID)
+                PRIMARY KEY (custId)
                 
         );
 
-        ALTER CUSTOMER ADD PASSWORD_DIGEST VARCHAR(100);
+        ALTER TABLE CUSTOMER ADD passwordDigest VARCHAR(100);
         
         CREATE TABLE CATEGORY(
 
-                CATEGORY_ID   INT NOT NULL AUTO_INCREMENT,
+                categoryId   INT NOT NULL AUTO_INCREMENT,
                 
-                NAME VARCHAR(40) NOT NULL,
+                name VARCHAR(40) NOT NULL,
                 
-                COMPANY_ID INT NOT NULL,
+                companyId INT NOT NULL,
                 
-                PRIMARY KEY (CATEGORY_ID)
+                PRIMARY KEY (categoryId)
                 
         );
         
         CREATE TABLE PROPERTY(
 
-                PROPERTY_ID   INT NOT NULL AUTO_INCREMENT,
+                propertyId   INT NOT NULL AUTO_INCREMENT,
                 
-                NAME VARCHAR(40) NOT NULL,
+                name VARCHAR(40) NOT NULL,
                 
-                PROPERTY_VALUES VARCHAR(80),
+                propertyValues VARCHAR(80),
                 
-                PRIMARY KEY (PROPERTY_ID)
+                PRIMARY KEY (propertyId)
                 
         );
         
         CREATE TABLE PRODUCT(
 
-                PRODUCT_ID   INT NOT NULL AUTO_INCREMENT,
+                productId   INT NOT NULL AUTO_INCREMENT,
                 
-                NAME VARCHAR(40) NOT NULL,
+                name VARCHAR(40) NOT NULL,
                 
-                QTY INT NOT NULL,
+                qty INT NOT NULL,
                 
-                PRICE INT NOT NULL,
+                price INT NOT NULL,
                 
-                IMAGE VARCHAR(40),
+                image VARCHAR(40),
                 
-                PRIMARY KEY (PRODUCT_ID)
+                PRIMARY KEY (productId)
                 
         );
         
         CREATE TABLE PRODUCT_PROPERTY(
 
-                PRODUCT_ID   INT NOT NULL,
+                productId   INT NOT NULL,
                 
-                PROPERTY_ID INT NOT NULL,
+                propertyId INT NOT NULL,
                 
-                PROPERTY_VALUE VARCHAR(40) NOT NULL
+                propertyValue VARCHAR(40) NOT NULL
                 
         );
         
         CREATE TABLE PRODUCT_CATEGORY(
 
-                PRODUCT_ID   INT NOT NULL,
+                productId   INT NOT NULL,
                 
-                CATEGORY_ID INT NOT NULL
+                categoryId INT NOT NULL
                 
         );
 
