@@ -1,13 +1,13 @@
 package com.ekarth.dao;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
 import java.lang.reflect.Field;
 
 /**
@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
  *
  * @param <T>
  */
-
 public abstract class AbstractDatabaseHandler<T> {
 
 
@@ -28,15 +27,14 @@ public abstract class AbstractDatabaseHandler<T> {
     protected Class<T> type;
 
 
-
-
-
     /**
      * The SQL-select-query
      */
 
     protected final String query;
 
+
+    public DriverManagerDataSource databaseConnecter;
 
     /**
      * Constructor
@@ -49,8 +47,7 @@ public abstract class AbstractDatabaseHandler<T> {
     protected AbstractDatabaseHandler(Class<T> type) {
         this.type = type;
         this.query = createQuery();
-
-
+        databaseConnecter = new DriverManagerDataSource("jdbc:mysql://localhost:3306/ekarth", "root", "spring");
     }
 
 

@@ -1,8 +1,8 @@
 package com.ekarth.dao;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.beans.IntrospectionException;
@@ -26,14 +26,9 @@ import java.util.List;
  *
  * @param <T>
  */
+
 public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
-    /**
-     * Contains the settings to create a connection to the database like
-     * <p>
-     * host/port/database/user/password
-     */
-    @Autowired
-    private DriverManagerDataSource databaseConnecter;
+
 
     public DatabaseSelector(Class<T> type) {
         super(type);

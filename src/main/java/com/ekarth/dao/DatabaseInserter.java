@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -28,13 +30,6 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
     public DatabaseInserter(Class<T> type) {
         super(type);
     }
-    /**
-     * Contains the settings to create a connection to the database like
-     * <p>
-     * host/port/database/user/password
-     */
-    @Autowired
-    private DriverManagerDataSource databaseConnecter;
 
     @Override
     protected String createQuery() {
