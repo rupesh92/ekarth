@@ -1,11 +1,5 @@
 package com.ekarth.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -16,26 +10,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-  
+
 /**
- *
  * Class that inserts a list of <T>s into the corresponding database-table.
  *
- * @author Tino for http://www.java-blog.com
- *
  * @param <T>
+ * @author shiwang
  */
 public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
-  
+
     public DatabaseInserter(Class<T> type) {
         super(type);
     }
 
     @Override
     protected String createQuery() {
-  
+
         StringBuilder sb = new StringBuilder();
-  
+
         sb.append("INSERT INTO ");
         sb.append(type.getSimpleName());
         sb.append("(");
@@ -44,17 +36,15 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
         sb.append(" VALUES (");
         sb.append(super.getColumns(true));
         sb.append(")");
-  
+
         return sb.toString();
     }
-  
+
     /**
      * Inserts a list of <T>s into the corresponding database-table
      *
-     * @param list
-     *            List of <T>s that should be inserted into the corresponding
-     *            database-table
-     *
+     * @param list List of <T>s that should be inserted into the corresponding
+     *             database-table
      * @throws SQLException
      * @throws SecurityException
      * @throws IllegalArgumentException
@@ -67,38 +57,39 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
             SecurityException, IllegalArgumentException,
             InstantiationException, IllegalAccessException,
             IntrospectionException, InvocationTargetException {
-  
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-  
+
         try {
             connection = databaseConnecter.getConnection();
             preparedStatement = connection.prepareStatement(query);
-  
+
             for (T instance : list) {
                 int i = 0;
-  
+
                 for (Field field : type.getDeclaredFields()) {
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
                             field.getName(), type);
- 
+
                     Method method = propertyDescriptor
                             .getReadMethod();
-  
+
                     Object value = method.invoke(instance);
-  
+
                     preparedStatement.setObject(++i, value);
                 }
-  
+
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
-  
+
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
         }
     }

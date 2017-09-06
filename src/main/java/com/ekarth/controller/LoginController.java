@@ -2,7 +2,6 @@ package com.ekarth.controller;
 
 import com.ekarth.model.Customer;
 import com.ekarth.service.LoginService;
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
