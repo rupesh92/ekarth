@@ -3,6 +3,7 @@ package com.ekarth.dao;
 import com.ekarth.model.annotations.PrimaryKey;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 /**
@@ -73,6 +74,7 @@ public abstract class AbstractDatabaseHandler<T> {
 	/* Iterate the column-names */
 
         for (Field f : type.getDeclaredFields()) {
+            Annotation[] check = f.getAnnotations();
             if (f.isAnnotationPresent(PrimaryKey.class)) {
                 continue;
             }
