@@ -30,15 +30,15 @@ public class LoginService {
         validateCompanyNameNonExistence(customer.getCompanyName());
         validateEmailNonExistence(customer.getEmailId());
         customer.setPasswordDigest(encryptor.getEncryptedPassword(customer.getPasswordDigest()));
-//        DatabaseInserter<Customer> customerDatabaseInserter = new DatabaseInserter<>(Customer.class);
-//        List<Customer> customers = new ArrayList<>();
-//        customers.add(customer);
-//        try {
-//            customerDatabaseInserter.insertObjects(customers);
-//        } catch (SQLException | InstantiationException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-        customerDAO.insert(customer);
+
+        DatabaseInserter<Customer> customerDatabaseInserter = new DatabaseInserter<>(Customer.class);
+        List<Customer> customers = new ArrayList<>();
+        customers.add(customer);
+        try {
+            customerDatabaseInserter.insertObjects(customers);
+        } catch (SQLException | InstantiationException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
         return "success";
     }
 

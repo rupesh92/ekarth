@@ -1,6 +1,8 @@
 package com.ekarth.dao;
 
 
+import com.ekarth.model.annotations.PrimaryKey;
+
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -71,6 +73,8 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
                 int i = 0;
 
                 for (Field field : type.getDeclaredFields()) {
+                    if(field.isAnnotationPresent(PrimaryKey.class))
+                        continue;
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
                             field.getName(), type);
 
