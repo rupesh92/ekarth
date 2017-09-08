@@ -15,8 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Service
-public class CustomerDAO
-{
+public class CustomerDAO {
     String INSERT_USER = "INSERT INTO CUSTOMER " +
             "(NAME,COMPANY_NAME,EMAIL_ID,CONTACT_NUMBER,PASSWORD_DIGEST) " +
             "VALUES (?,?,?,?,?)";
@@ -36,7 +35,7 @@ public class CustomerDAO
         this.dataSource = dataSource;
     }
 
-    public void insert(Customer customer){
+    public void insert(Customer customer) {
         Connection conn = null;
 
         try {
@@ -58,7 +57,8 @@ public class CustomerDAO
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
         }
     }
@@ -83,7 +83,8 @@ public class CustomerDAO
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
         }
         return customer;
@@ -109,21 +110,22 @@ public class CustomerDAO
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e) {
+                }
             }
         }
         return customer;
     }
 
     private Customer getCustomerFromResultSet(ResultSet resultSet) throws SQLException {
-        Customer customer = new Customer(
-                resultSet.getInt("CUST_ID"),
-                resultSet.getString("NAME"),
-                resultSet.getString("COMPANY_NAME"),
-                resultSet.getString("EMAIL_ID"),
-                resultSet.getString("CONTACT_NUMBER"),
-                resultSet.getString("PASSWORD_DIGEST"));
-        return customer;
+//        Customer customer = new Customer(
+//                resultSet.getInt("CUST_ID"),
+//                resultSet.getString("NAME"),
+//                resultSet.getString("COMPANY_NAME"),
+//                resultSet.getString("EMAIL_ID"),
+//                resultSet.getString("CONTACT_NUMBER"),
+//                resultSet.getString("PASSWORD_DIGEST"));
+        return null;
     }
 }
 

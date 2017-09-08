@@ -21,6 +21,7 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
 
     public DatabaseInserter(Class<T> type) {
         super(type);
+        this.query = createQuery();
     }
 
     @Override
@@ -39,6 +40,7 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
 
         return sb.toString();
     }
+
 
     /**
      * Inserts a list of <T>s into the corresponding database-table

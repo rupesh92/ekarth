@@ -22,14 +22,35 @@ import java.util.List;
  */
 
 public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
+    List<Field> fields;
+    List<Object> values;
 
-
-    public DatabaseSelector(Class<T> type) {
+    public DatabaseSelector(Class<T> type, List<Field> fields, List<Object> values) {
         super(type);
+        this.fields = fields;
+        this.values = values;
+        this.query = createQuery();
     }
 
+
+//    @Override
+//    protected String createQuery() {
+//
+//        StringBuilder sb = new StringBuilder();
+//
+//        sb.append("SELECT ");
+//        sb.append(super.getColumns(false));
+//        sb.append(" FROM ");
+//
+//		/* We assume the table-name exactly matches the simpleName of T */
+//        sb.append(type.getSimpleName());
+//
+//        return sb.toString();
+//    }
+
     @Override
-    protected String createQuery() {
+    public String createQuery() {
+
 
         StringBuilder sb = new StringBuilder();
 
@@ -39,9 +60,22 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
 
 		/* We assume the table-name exactly matches the simpleName of T */
         sb.append(type.getSimpleName());
+        sb.append("WHERE ");
+        int valueId = 0;
+        for (Field f :
+                fields) {
+            if (valueId > 0)
+                sb.append(" AND ");
+            sb.append(f.getName() + "=");
+            String value = (String) (values.get(valueId));
+            sb.append(value);
+            valueId++;
+
+        }
 
         return sb.toString();
     }
+
 
     /**
      * Creates a list of <T>s filled with values from the corresponding

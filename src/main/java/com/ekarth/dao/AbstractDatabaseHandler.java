@@ -1,5 +1,6 @@
 package com.ekarth.dao;
 
+import com.ekarth.model.annotations.PrimaryKey;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.lang.reflect.Field;
@@ -25,7 +26,7 @@ public abstract class AbstractDatabaseHandler<T> {
      * The SQL-select-query
      */
 
-    protected final String query;
+    protected String query;
 
 
     public DriverManagerDataSource databaseConnecter;
@@ -40,7 +41,6 @@ public abstract class AbstractDatabaseHandler<T> {
 
     protected AbstractDatabaseHandler(Class<T> type) {
         this.type = type;
-        this.query = createQuery();
         databaseConnecter = new DriverManagerDataSource("jdbc:mysql://localhost:3306/ekarth", "root", "spring");
     }
 
@@ -73,6 +73,9 @@ public abstract class AbstractDatabaseHandler<T> {
 	/* Iterate the column-names */
 
         for (Field f : type.getDeclaredFields()) {
+            if (f.isAnnotationPresent(PrimaryKey.class)) {
+                continue;
+            }
             if (first)
                 first = false;
             else
