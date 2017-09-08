@@ -3,6 +3,8 @@ package com.ekarth.controller;
 import com.ekarth.model.Customer;
 import com.ekarth.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -14,17 +16,13 @@ public class LoginController {
     @Autowired
     LoginService loginService;
     @RequestMapping(value = "signup", method= RequestMethod.POST)
-    @ResponseBody
-    public String signup(@RequestParam String name,
-                         @RequestParam String companyName,
-                         @RequestParam String emailId,
-                         @RequestParam String password,
-                         @RequestParam String contactNumber) {
-        return loginService.signUp(name, companyName, contactNumber, emailId, password);
+    public ResponseEntity<Customer> signup(@RequestBody Customer customer) {
+        loginService.signUp(customer);
+
+        return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "login", method= RequestMethod.POST)
-    @ResponseBody
     public Customer login(@RequestParam String companyName, @RequestParam String password) {
         Customer customer = loginService.login(companyName, password);
         System.out.println("Contact number is " + customer.getContactNumber());

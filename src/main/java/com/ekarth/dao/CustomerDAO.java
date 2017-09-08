@@ -36,17 +36,17 @@ public class CustomerDAO
         this.dataSource = dataSource;
     }
 
-    public void insert(String name, String companyName, String contactNumber, String emailId, String passwordDigest){
+    public void insert(Customer customer){
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(INSERT_USER);
-            ps.setString(1, name);
-            ps.setString(2, companyName);
-            ps.setString(3, emailId);
-            ps.setString(4, contactNumber);
-            ps.setString(5, passwordDigest);
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getCompanyName());
+            ps.setString(3, customer.getEmailId());
+            ps.setString(4, customer.getContactNumber());
+            ps.setString(5, customer.getPasswordDigest());
             logger.debug("Executed sql query is " + ps.toString());
             ps.executeUpdate();
             ps.close();

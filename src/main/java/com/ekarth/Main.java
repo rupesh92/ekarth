@@ -2,7 +2,6 @@ package com.ekarth;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 /**
  * Created by shiwang on 5/23/17.
  */
@@ -14,8 +13,6 @@ public class Main
         String relativeDir = "/src/main/webapp/WEB-INF/spring-datasource.xml";
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("spring-core-config.xml");
-
-//        CustomerDAO customerDAO = (CustomerDAO) context.getBean("customerDAO");
     }
 }
 

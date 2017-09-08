@@ -17,11 +17,11 @@ public class LoginService {
     CustomerDAO customerDAO;
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    public String signUp(String name, String companyName, String contactNumber, String emailId, String password) {
-        validateCompanyNameNonExistence(companyName);
-        validateEmailNonExistence(emailId);
-        String passwordDigest = getEncryptedPassword(password);
-        customerDAO.insert(name, companyName, contactNumber, emailId, passwordDigest);
+    public String signUp(Customer customer) {
+        validateCompanyNameNonExistence(customer.getCompanyName());
+        validateEmailNonExistence(customer.getEmailId());
+        customer.setPasswordDigest(getEncryptedPassword(customer.getPasswordDigest()));
+        customerDAO.insert(customer);
         return "success";
     }
 
@@ -55,7 +55,7 @@ public class LoginService {
         String passwordDigest = getEncryptedPassword(password);
         Customer customer = customerDAO.getCustomerFromCompanyName(companyName);
 
-        if (!bCryptPasswordEncoder.matches(password, customer.getPasswordDigest())) {
+        if (customer == null || !bCryptPasswordEncoder.matches(password, customer.getPasswordDigest())) {
             throw new RuntimeException("Incorrect Company Name or Password");
         }
         return customer;
