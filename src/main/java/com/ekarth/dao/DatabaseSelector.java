@@ -1,6 +1,11 @@
 package com.ekarth.dao;
 
 
+import com.ekarth.model.annotations.Encrypted;
+import com.ekarth.security.Encryptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -25,28 +30,13 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
     List<Field> fields;
     List<Object> values;
 
+
     public DatabaseSelector(Class<T> type, List<Field> fields, List<Object> values) {
         super(type);
         this.fields = fields;
         this.values = values;
         this.query = createQuery();
     }
-
-
-//    @Override
-//    protected String createQuery() {
-//
-//        StringBuilder sb = new StringBuilder();
-//
-//        sb.append("SELECT ");
-//        sb.append(super.getColumns(false));
-//        sb.append(" FROM ");
-//
-//		/* We assume the table-name exactly matches the simpleName of T */
-//        sb.append(type.getSimpleName());
-//
-//        return sb.toString();
-//    }
 
     @Override
     public String createQuery() {
@@ -68,6 +58,9 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
                 sb.append(" AND ");
             sb.append(f.getName() + "=");
             String value = (String) (values.get(valueId));
+            if(f.isAnnotationPresent(Encrypted.class)){
+                value = encryptor.getEncryptedObject(value);
+            }
             sb.append(value);
             valueId++;
 

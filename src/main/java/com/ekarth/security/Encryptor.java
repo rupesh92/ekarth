@@ -12,13 +12,10 @@ public class Encryptor {
         this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
-    public String getEncryptedPassword(String password) {
-        String passwordDigest = bCryptPasswordEncoder.encode(password);
+    public String getEncryptedObject(Object password) {
+        String passwordDigest = bCryptPasswordEncoder.encode((CharSequence) password);
         System.out.println("Password: " + password + " Encoded Pass: " + passwordDigest);
         return passwordDigest;
     }
 
-    public boolean isMatch(String password, String passwordDigest){
-        return bCryptPasswordEncoder.matches(password, passwordDigest);
-    }
 }

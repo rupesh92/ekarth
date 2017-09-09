@@ -1,6 +1,7 @@
 package com.ekarth.dao;
 
 
+import com.ekarth.model.annotations.Encrypted;
 import com.ekarth.model.annotations.PrimaryKey;
 
 import java.beans.IntrospectionException;
@@ -20,6 +21,7 @@ import java.util.List;
  * @author shiwang
  */
 public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
+
 
     public DatabaseInserter(Class<T> type) {
         super(type);
@@ -75,6 +77,7 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
                 for (Field field : type.getDeclaredFields()) {
                     if(field.isAnnotationPresent(PrimaryKey.class))
                         continue;
+
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
                             field.getName(), type);
 
@@ -82,6 +85,9 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
                             .getReadMethod();
 
                     Object value = method.invoke(instance);
+                    if(field.isAnnotationPresent(Encrypted.class)){
+                        value = encryptor.getEncryptedObject(value);
+                    }
 
                     preparedStatement.setObject(++i, value);
                 }

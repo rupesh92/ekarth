@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import com.ekarth.model.annotations.Encrypted;
 import com.ekarth.model.annotations.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Customer implements Serializable {
     String companyName;
     String contactNumber;
     String emailId;
+    @Encrypted
     String passwordDigest;
 
 }

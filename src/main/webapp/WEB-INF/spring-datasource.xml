@@ -11,4 +11,7 @@
         <property name="username" value="root" />
         <property name="password" value="spring" />
     </bean>
+
+    <bean id="encryptor" class="com.ekarth.security.Encryptor">
+    </bean>
 </beans>

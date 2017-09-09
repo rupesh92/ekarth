@@ -6,8 +6,6 @@
     <bean id="customerDAO" class="com.ekarth.dao.CustomerDAO">
         <property name="dataSource" ref="dataSource" />
     </bean>
-    <bean id="encryptor" class="com.ekarth.security.Encryptor">
-    </bean>
 
 
 </beans>

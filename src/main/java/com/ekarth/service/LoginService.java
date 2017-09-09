@@ -2,12 +2,14 @@ package com.ekarth.service;
 
 import com.ekarth.dao.CustomerDAO;
 import com.ekarth.dao.DatabaseInserter;
+import com.ekarth.dao.DatabaseSelector;
 import com.ekarth.model.Customer;
 import com.ekarth.security.Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.beans.IntrospectionException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,19 +28,16 @@ public class LoginService {
     @Autowired
     Encryptor encryptor;
 
-    public String signUp(Customer customer) {
+    public String signUp(Customer customer) throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
+        //TODO: make these columns unique , these checks wouldnot be needed
         validateCompanyNameNonExistence(customer.getCompanyName());
         validateEmailNonExistence(customer.getEmailId());
-        customer.setPasswordDigest(encryptor.getEncryptedPassword(customer.getPasswordDigest()));
 
         DatabaseInserter<Customer> customerDatabaseInserter = new DatabaseInserter<>(Customer.class);
         List<Customer> customers = new ArrayList<>();
         customers.add(customer);
-        try {
-            customerDatabaseInserter.insertObjects(customers);
-        } catch (SQLException | InstantiationException | IllegalAccessException | IntrospectionException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        customerDatabaseInserter.insertObjects(customers);
+
         return "success";
     }
 
@@ -63,13 +62,27 @@ public class LoginService {
         }
     }
 
-    public Customer login(String companyName, String password) {
-        Customer customer = customerDAO.getCustomerFromCompanyName(companyName);
+    public Customer login(String companyName, String password) throws NoSuchFieldException, InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
+        //TODO: Update to use selector
+        Field companyNameField = Customer.class.getField("companyName");
+        Field passwordDisgestField = Customer.class.getField("passwordDisgest");
+        List<Field> fields = new ArrayList<>();
+        fields.add(companyNameField);
+        fields.add(passwordDisgestField);
 
-        if (customer == null || !encryptor.isMatch(password, customer.getPasswordDigest())) {
-            throw new RuntimeException("Incorrect Company Name or Password");
+        List<Object> values = new ArrayList<>();
+        values.add(companyName);
+        values.add(password);
+
+        DatabaseSelector<Customer> databaseSelector= new DatabaseSelector<>(Customer.class, fields,values );
+        List<Customer> customers = databaseSelector.selectObjects();
+        if(customers.isEmpty()){
+            System.out.println("no customer like that dude!");
         }
-        return customer;
+        if(customers.size()>1){
+            System.out.println("Something bad has happened with our database");
+        }
+        return customers.get(0);
 
     }
 }
