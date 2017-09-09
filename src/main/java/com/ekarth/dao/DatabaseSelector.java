@@ -30,11 +30,13 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
     List<Field> fields;
     List<Object> values;
 
+    Encryptor encryptor;
 
-    public DatabaseSelector(Class<T> type, List<Field> fields, List<Object> values) {
+    public DatabaseSelector(Class<T> type, Encryptor encryptor, List<Field> fields, List<Object> values) {
         super(type);
         this.fields = fields;
         this.values = values;
+        this.encryptor = encryptor;
         this.query = createQuery();
     }
 

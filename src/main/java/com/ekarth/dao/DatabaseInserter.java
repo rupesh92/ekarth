@@ -3,6 +3,9 @@ package com.ekarth.dao;
 
 import com.ekarth.model.annotations.Encrypted;
 import com.ekarth.model.annotations.PrimaryKey;
+import com.ekarth.security.Encryptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -22,10 +25,13 @@ import java.util.List;
  */
 public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
 
+    Encryptor encryptor;
 
-    public DatabaseInserter(Class<T> type) {
+
+    public DatabaseInserter(Class<T> type, Encryptor encryptor) {
         super(type);
         this.query = createQuery();
+        this.encryptor = encryptor;
     }
 
     @Override

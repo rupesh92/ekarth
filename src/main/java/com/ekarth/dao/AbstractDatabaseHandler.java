@@ -3,10 +3,8 @@ package com.ekarth.dao;
 import com.ekarth.model.annotations.PrimaryKey;
 import com.ekarth.security.Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -16,11 +14,9 @@ import java.lang.reflect.Field;
  *
  * @param <T>
  */
-@Configuration
+
 public abstract class AbstractDatabaseHandler<T> {
 
-@Autowired
-Encryptor encryptor;
     /**
      * The type of the objects that should be created and filled with values
      * <p>

@@ -33,7 +33,7 @@ public class LoginService {
         validateCompanyNameNonExistence(customer.getCompanyName());
         validateEmailNonExistence(customer.getEmailId());
 
-        DatabaseInserter<Customer> customerDatabaseInserter = new DatabaseInserter<>(Customer.class);
+        DatabaseInserter<Customer> customerDatabaseInserter = new DatabaseInserter<>(Customer.class, encryptor);
         List<Customer> customers = new ArrayList<>();
         customers.add(customer);
         customerDatabaseInserter.insertObjects(customers);
@@ -74,7 +74,7 @@ public class LoginService {
         values.add(companyName);
         values.add(password);
 
-        DatabaseSelector<Customer> databaseSelector= new DatabaseSelector<>(Customer.class, fields,values );
+        DatabaseSelector<Customer> databaseSelector= new DatabaseSelector<>(Customer.class, encryptor, fields,values );
         List<Customer> customers = databaseSelector.selectObjects();
         if(customers.isEmpty()){
             System.out.println("no customer like that dude!");
