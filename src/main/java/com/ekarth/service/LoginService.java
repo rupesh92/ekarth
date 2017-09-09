@@ -28,10 +28,10 @@ public class LoginService {
     @Autowired
     Encryptor encryptor;
 
-    public String signUp(Customer customer) throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
+    public String signUp(Customer customer) throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         //TODO: make these columns unique , these checks wouldnot be needed
-        validateCompanyNameNonExistence(customer.getCompanyName());
-        validateEmailNonExistence(customer.getEmailId());
+        validateNonExistance(Customer.class.getDeclaredField("CompanyName"), customer.getCompanyName());
+        validateNonExistance(Customer.class.getDeclaredField("EmailId"), customer.getEmailId());
 
         DatabaseInserter<Customer> customerDatabaseInserter = new DatabaseInserter<>(Customer.class, encryptor);
         List<Customer> customers = new ArrayList<>();
@@ -41,47 +41,54 @@ public class LoginService {
         return "success";
     }
 
+    private void validateNonExistance(Field field, String value) {
 
-    private void validateEmailNonExistence(String emailId) {
-        try {
-            if (customerDAO.getCustomerFromEmailId(emailId) != null) {
-                throw new RuntimeException("Email ID " + emailId + " already exists");
-            }
-        } catch (Exception e) {
-            return;
-        }
     }
 
-    private void validateCompanyNameNonExistence(String companyName) {
-        try {
-            if (customerDAO.getCustomerFromCompanyName(companyName) != null) {
-                throw new RuntimeException("Company Name " + companyName + " already exists");
-            }
-        } catch (Exception e) {
-            return;
-        }
-    }
+
+//    private void validateEmailNonExistence(String emailId) {
+//        try {
+//            if (customerDAO.getCustomerFromEmailId(emailId) != null) {
+//                throw new RuntimeException("Email ID " + emailId + " already exists");
+//            }
+//        } catch (Exception e) {
+//            return;
+//        }
+//    }
+//
+//    private void validateCompanyNameNonExistence(String companyName) {
+//        try {
+//            if (customerDAO.getCustomerFromCompanyName(companyName) != null) {
+//                throw new RuntimeException("Company Name " + companyName + " already exists");
+//            }
+//        } catch (Exception e) {
+//            return;
+//        }
+//    }
 
     public Customer login(String companyName, String password) throws NoSuchFieldException, InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
         //TODO: Update to use selector
-        Field companyNameField = Customer.class.getField("companyName");
-        Field passwordDisgestField = Customer.class.getField("passwordDisgest");
+        Field companyNameField = Customer.class.getDeclaredField("companyName");
+//        Field passwordDisgestField = Customer.class.getDeclaredField("passwordDigest");
         List<Field> fields = new ArrayList<>();
         fields.add(companyNameField);
-        fields.add(passwordDisgestField);
+//        fields.add(passwordDisgestField);
 
         List<Object> values = new ArrayList<>();
         values.add(companyName);
-        values.add(password);
+//        values.add(password);
 
         DatabaseSelector<Customer> databaseSelector= new DatabaseSelector<>(Customer.class, encryptor, fields,values );
         List<Customer> customers = databaseSelector.selectObjects();
-        if(customers.isEmpty()){
-            System.out.println("no customer like that dude!");
-        }
+
         if(customers.size()>1){
             System.out.println("Something bad has happened with our database");
         }
+
+        if(customers.isEmpty() || !encryptor.getbCryptPasswordEncoder().matches(password, customers.get(0).getPasswordDigest())){
+            System.out.println("no customer like that dude!");
+        }
+
         return customers.get(0);
 
     }

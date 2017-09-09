@@ -7,10 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-
 
 /**
  * Created by rupesh on 01/09/17.
@@ -25,15 +21,7 @@ public class LoginController {
     public ResponseEntity<Customer> signup(@RequestBody Customer customer) {
         try {
             loginService.signUp(customer);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IntrospectionException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -44,19 +32,10 @@ public class LoginController {
 
     public Customer login(@RequestParam String companyName, @RequestParam String password) {
         Customer customer = null;
+        System.out.println("Company name is" + companyName + " and password is " + password);
         try {
             customer = loginService.login(companyName, password);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IntrospectionException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return customer;

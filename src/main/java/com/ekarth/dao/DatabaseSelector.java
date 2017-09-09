@@ -3,8 +3,6 @@ package com.ekarth.dao;
 
 import com.ekarth.model.annotations.Encrypted;
 import com.ekarth.security.Encryptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -40,6 +38,8 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
         this.query = createQuery();
     }
 
+
+
     @Override
     public String createQuery() {
 
@@ -47,12 +47,12 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
         StringBuilder sb = new StringBuilder();
 
         sb.append("SELECT ");
-        sb.append(super.getColumns(false));
+        sb.append(super.getColumns(false, true));
         sb.append(" FROM ");
 
 		/* We assume the table-name exactly matches the simpleName of T */
         sb.append(type.getSimpleName());
-        sb.append("WHERE ");
+        sb.append(" WHERE ");
         int valueId = 0;
         for (Field f :
                 fields) {
@@ -63,12 +63,17 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
             if(f.isAnnotationPresent(Encrypted.class)){
                 value = encryptor.getEncryptedObject(value);
             }
+            if(f.getType().isAssignableFrom(String.class)) value = appendWithQuotes(value);
             sb.append(value);
             valueId++;
 
         }
-
+        System.out.println("Formed sql query is " + sb.toString());
         return sb.toString();
+    }
+
+    private String appendWithQuotes(String value) {
+        return "'" + value + "'";
     }
 
 

@@ -1,10 +1,7 @@
 package com.ekarth.dao;
 
 import com.ekarth.model.annotations.PrimaryKey;
-import com.ekarth.security.Encryptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -69,7 +66,7 @@ public abstract class AbstractDatabaseHandler<T> {
      * @return
      */
 
-    protected String getColumns(boolean usePlaceHolders) {
+    protected String getColumns(boolean usePlaceHolders, boolean isPrimarykeyNeeded) {
 
         StringBuilder sb = new StringBuilder();
         boolean first = true;
@@ -78,7 +75,7 @@ public abstract class AbstractDatabaseHandler<T> {
 
         for (Field f : type.getDeclaredFields()) {
             Annotation[] check = f.getAnnotations();
-            if (f.isAnnotationPresent(PrimaryKey.class)) {
+            if (!isPrimarykeyNeeded && f.isAnnotationPresent(PrimaryKey.class)) {
                 continue;
             }
             if (first)

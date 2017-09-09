@@ -4,8 +4,6 @@ package com.ekarth.dao;
 import com.ekarth.model.annotations.Encrypted;
 import com.ekarth.model.annotations.PrimaryKey;
 import com.ekarth.security.Encryptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
@@ -42,10 +40,10 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
         sb.append("INSERT INTO ");
         sb.append(type.getSimpleName());
         sb.append("(");
-        sb.append(super.getColumns(false));
+        sb.append(super.getColumns(false, false));
         sb.append(")");
         sb.append(" VALUES (");
-        sb.append(super.getColumns(true));
+        sb.append(super.getColumns(true, false));
         sb.append(")");
 
         return sb.toString();
