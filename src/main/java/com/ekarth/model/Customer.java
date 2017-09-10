@@ -1,17 +1,13 @@
 package com.ekarth.model;
 
 
-import java.io.Serializable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import com.ekarth.model.annotations.Encrypted;
 import com.ekarth.model.annotations.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.io.Serializable;
 
 /**
  * Created by shiwang on 5/21/17.

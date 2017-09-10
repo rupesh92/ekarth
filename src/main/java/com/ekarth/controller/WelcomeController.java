@@ -1,6 +1,5 @@
 package com.ekarth.controller;
 
-import com.ekarth.dao.CustomerDAO;
 import com.ekarth.service.HelloWorldService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +17,6 @@ public class WelcomeController {
 	private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 	private final HelloWorldService helloWorldService;
 
-	@Autowired
-    CustomerDAO userDAO;
 
 	@Autowired
 	public WelcomeController(HelloWorldService helloWorldService) {

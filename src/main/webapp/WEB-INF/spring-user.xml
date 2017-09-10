@@ -3,9 +3,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="customerDAO" class="com.ekarth.dao.CustomerDAO">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
 
 
 </beans>

@@ -1,6 +1,5 @@
 package com.ekarth.service;
 
-import com.ekarth.dao.CustomerDAO;
 import com.ekarth.dao.DatabaseInserter;
 import com.ekarth.dao.DatabaseSelector;
 import com.ekarth.model.Customer;
@@ -24,8 +23,6 @@ import java.util.List;
 public class LoginService {
 
     @Autowired
-    CustomerDAO customerDAO;
-    @Autowired
     Encryptor encryptor;
 
     public String signUp(Customer customer) throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException, NoSuchFieldException {
@@ -45,26 +42,6 @@ public class LoginService {
 
     }
 
-
-//    private void validateEmailNonExistence(String emailId) {
-//        try {
-//            if (customerDAO.getCustomerFromEmailId(emailId) != null) {
-//                throw new RuntimeException("Email ID " + emailId + " already exists");
-//            }
-//        } catch (Exception e) {
-//            return;
-//        }
-//    }
-//
-//    private void validateCompanyNameNonExistence(String companyName) {
-//        try {
-//            if (customerDAO.getCustomerFromCompanyName(companyName) != null) {
-//                throw new RuntimeException("Company Name " + companyName + " already exists");
-//            }
-//        } catch (Exception e) {
-//            return;
-//        }
-//    }
 
     public Customer login(String companyName, String password) throws NoSuchFieldException, InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
         //TODO: Update to use selector
