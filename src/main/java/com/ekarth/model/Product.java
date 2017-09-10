@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * Created by shiwang on 5/21/17.
  */
@@ -17,5 +19,5 @@ public class Product {
     String name;
     int qty;
     int price;
-    String image;
+    List<String> image;
 }
