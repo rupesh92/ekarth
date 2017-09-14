@@ -1,18 +1,16 @@
 package com.ekarth.model;
 
-import com.ekarth.model.annotations.PrimaryKey;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
-    @PrimaryKey
-    int categoryId;
-    String name;
-    int companyId;
-
+public class ProductDetails {
+    Product product;
+    Category category;
+    List<Property> propertyList;
 }

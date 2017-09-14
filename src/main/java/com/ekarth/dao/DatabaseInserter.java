@@ -90,6 +90,9 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
                             .getReadMethod();
 
                     Object value = method.invoke(instance);
+                    if( value instanceof List){
+                        value = String.valueOf(value);
+                    }
                     if (field.isAnnotationPresent(Encrypted.class)) {
                         value = encryptor.getEncryptedObject(value);
                     }
@@ -106,14 +109,14 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
             DatabaseSelector<T> databaseSelector;
             List<T> objectsInserted = new ArrayList<>();
             for (T instance : list) {
-                List<String> fieldsToCheckOn = new ArrayList<>();
+                List<Field> fieldsToCheckOn = new ArrayList<>();
                 List<Object> valuesToCheckOn = new ArrayList<>();
 
                 for (Field field : type.getDeclaredFields()) {
                     if (field.isAnnotationPresent(PrimaryKey.class))
                         continue;
 
-                    fieldsToCheckOn.add(field.getName());
+                    fieldsToCheckOn.add(field);
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
                             field.getName(), type);
                     Method method = propertyDescriptor

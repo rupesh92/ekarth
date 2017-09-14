@@ -44,7 +44,7 @@ public class ProductService {
 
         //TODO: the productId and propId could be empty !! fix this.
         List<ProductProperty> productProperties = propertiesUpdated.stream()
-                .map(property -> new ProductProperty(productUpdated.getProductId(), property.getPropertyId()))
+                .map(property -> new ProductProperty(productUpdated.getProductId(), property.getPropertyId(), "random"))
                 .collect(Collectors.toList());
         DatabaseInserter<ProductProperty> productPropertyDatabaseInserter = new DatabaseInserter<>(ProductProperty.class, encryptor);
         productPropertyDatabaseInserter.insertObjects(productProperties);

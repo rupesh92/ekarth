@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class ProductProperty {
     int propertyId;
     int productId;
+    String propertyValue;
 }

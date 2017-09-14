@@ -1,8 +1,7 @@
 package com.ekarth.controller;
 
-import com.ekarth.model.Category;
 import com.ekarth.model.Product;
-import com.ekarth.model.Property;
+import com.ekarth.model.ProductDetails;
 import com.ekarth.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "api/v1")
 public class AddProductController {
@@ -25,15 +22,15 @@ public class AddProductController {
     ProductService productService;
 
     @RequestMapping(value = "addProduct", method = RequestMethod.POST)
-    public ResponseEntity<Product> addProduct(@RequestBody Product product, @RequestBody Category category,
-                                              @RequestBody List<Property> propertyList) {
+    public ResponseEntity<Product> addProduct(@RequestBody ProductDetails productDetails) {
         try {
-            productService.addProductDetails(product, category, propertyList);
+            productService.addProductDetails(productDetails.getProduct(), productDetails.getCategory(),
+                    productDetails.getPropertyList());
         } catch (Exception e) {
             logger.error("We could not add your details due to ", e.getMessage());
             e.printStackTrace();
         }
 
-        return new ResponseEntity<Product>(product, HttpStatus.CREATED);
+        return new ResponseEntity<Product>(productDetails.getProduct(), HttpStatus.CREATED);
     }
 }

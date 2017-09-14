@@ -59,11 +59,11 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
             if (valueId > 0)
                 sb.append(" AND ");
             sb.append(f.getName() + "=");
-            String value = (String) (values.get(valueId));
+            String value = String.valueOf(values.get(valueId));
             if(f.isAnnotationPresent(Encrypted.class)){
                 value = encryptor.getEncryptedObject(value);
             }
-            if(f.getType().isAssignableFrom(String.class)) value = appendWithQuotes(value);
+            if(f.getType().isAssignableFrom(String.class) || f.getType().isAssignableFrom(List.class)) value = appendWithQuotes(value);
             sb.append(value);
             valueId++;
 
@@ -147,6 +147,10 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
 
 				/* We assume the table-column-names exactly match the variable-names of T */
                 Object value = resultSet.getObject(field.getName());
+
+                if(field.getType().isAssignableFrom(List.class)){
+                    value = value.toString().substring(1,value.toString().length()-1);
+                }
 
                 PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
                         field.getName(), type);
