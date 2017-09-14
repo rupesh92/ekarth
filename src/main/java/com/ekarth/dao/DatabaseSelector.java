@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -150,6 +151,7 @@ public class DatabaseSelector<T> extends AbstractDatabaseHandler<T> {
 
                 if(field.getType().isAssignableFrom(List.class)){
                     value = value.toString().substring(1,value.toString().length()-1);
+                    value = Arrays.asList(value.toString().split(","));
                 }
 
                 PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
