@@ -12,6 +12,15 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by rupesh on 01/09/17.
+ *
+ * Sample input:
+ {
+ "name": "Shiwangi",
+ "companyName": "Ekarth",
+ "contactNumber":"834857632",
+ "emailId": "shiwangishah93@gmail.com",
+ "passwordDigest": "godbachao"
+ }
  */
 @RestController
 @RequestMapping(value = "api/v1")

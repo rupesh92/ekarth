@@ -13,6 +13,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ *
+ * Sample input:
+ {
+ "product": {
+ "name": "Frayed Pants",
+ "qty": 100,
+ "price": 3000,
+ "image": ["image1","image2"]
+ },
+ "category": {
+ "name": "Bottomwear",
+ "companyId": 1
+ },
+ "propertyList" :[{
+ "name": "Color",
+ "propertyValues": ["Red","Blue"]
+ }]
+ }
+
+ */
+
 @RestController
 @RequestMapping(value = "api/v1")
 public class AddProductController {
