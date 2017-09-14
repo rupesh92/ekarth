@@ -69,7 +69,7 @@
                 
         );
         
-        CREATE TABLE PRODUCT_PROPERTY(
+        CREATE TABLE PRODUCTPROPERTY(
 
                 productId   INT NOT NULL,
                 
@@ -79,7 +79,7 @@
                 
         );
         
-        CREATE TABLE PRODUCT_CATEGORY(
+        CREATE TABLE PRODUCTCATEGORY(
 
                 productId   INT NOT NULL,
                 
