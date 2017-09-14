@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,7 +64,7 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
      * @throws IntrospectionException
      * @throws InvocationTargetException
      */
-    public void insertObjects(List<T> list) throws SQLException,
+    public List<T> insertObjects(List<T> list) throws SQLException,
             SecurityException, IllegalArgumentException,
             InstantiationException, IllegalAccessException,
             IntrospectionException, InvocationTargetException {
@@ -79,7 +80,7 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
                 int i = 0;
 
                 for (Field field : type.getDeclaredFields()) {
-                    if(field.isAnnotationPresent(PrimaryKey.class))
+                    if (field.isAnnotationPresent(PrimaryKey.class))
                         continue;
 
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
@@ -89,7 +90,7 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
                             .getReadMethod();
 
                     Object value = method.invoke(instance);
-                    if(field.isAnnotationPresent(Encrypted.class)){
+                    if (field.isAnnotationPresent(Encrypted.class)) {
                         value = encryptor.getEncryptedObject(value);
                     }
 
@@ -99,6 +100,37 @@ public class DatabaseInserter<T> extends AbstractDatabaseHandler<T> {
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
+
+            //get the values inserted , with the primary key as we need the primary key to insert into other tables maybe.
+
+            DatabaseSelector<T> databaseSelector;
+            List<T> objectsInserted = new ArrayList<>();
+            for (T instance : list) {
+                List<String> fieldsToCheckOn = new ArrayList<>();
+                List<Object> valuesToCheckOn = new ArrayList<>();
+
+                for (Field field : type.getDeclaredFields()) {
+                    if (field.isAnnotationPresent(PrimaryKey.class))
+                        continue;
+
+                    fieldsToCheckOn.add(field.getName());
+                    PropertyDescriptor propertyDescriptor = new PropertyDescriptor(
+                            field.getName(), type);
+                    Method method = propertyDescriptor
+                            .getReadMethod();
+                    Object value = method.invoke(instance);
+                    if (field.isAnnotationPresent(Encrypted.class)) {
+                        value = encryptor.getEncryptedObject(value);
+                    }
+
+                    valuesToCheckOn.add(value);
+                }
+                databaseSelector =
+                        new DatabaseSelector(instance.getClass(), encryptor, fieldsToCheckOn, valuesToCheckOn);
+                objectsInserted.addAll(databaseSelector.selectObjects());
+
+            }
+            return objectsInserted;
 
         } finally {
             if (connection != null) {
