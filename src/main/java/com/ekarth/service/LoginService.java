@@ -27,8 +27,8 @@ public class LoginService {
 
     public String signUp(Customer customer) throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         //TODO: make these columns unique , these checks wouldnot be needed
-        validateNonExistance(Customer.class.getDeclaredField("CompanyName"), customer.getCompanyName());
-        validateNonExistance(Customer.class.getDeclaredField("EmailId"), customer.getEmailId());
+//        validateNonExistance(Customer.class.getDeclaredField("CompanyName"), customer.getCompanyName());
+//        validateNonExistance(Customer.class.getDeclaredField("EmailId"), customer.getEmailId());
 
         DatabaseInserter<Customer> customerDatabaseInserter = new DatabaseInserter<>(Customer.class, encryptor);
         List<Customer> customers = new ArrayList<>();
