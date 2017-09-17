@@ -1,6 +1,9 @@
 package com.ekarth.controller;
 
+import com.ekarth.model.Category;
 import com.ekarth.model.Customer;
+import com.ekarth.pojos.LoginResponse;
+import com.ekarth.service.CategoryService;
 import com.ekarth.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -31,6 +36,8 @@ public class LoginController {
 
     @Autowired
     LoginService loginService;
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
@@ -47,15 +54,18 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
-    public Customer login(@RequestParam String companyName, @RequestParam String password) {
+    public LoginResponse login(@RequestParam String companyName, @RequestParam String password) {
         Customer customer = null;
+        List<Category> categoryList = null;
         System.out.println("Company name is" + companyName + " and password is " + password);
         try {
             customer = loginService.login(companyName, password);
+
+            categoryList = categoryService.getAllCategories(customer.getCustId());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return customer;
+        return new LoginResponse(customer,categoryList);
     }
 
     //Add support for forgot password too

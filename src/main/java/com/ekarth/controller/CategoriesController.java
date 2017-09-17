@@ -7,10 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +20,8 @@ public class CategoriesController {
     @Autowired
     CategoryService categoryService;
 
-    @RequestMapping(value = "addProduct", method = RequestMethod.POST)
+    @RequestMapping(value = "getCategories", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Category>> addProduct(@RequestParam int custId) {
         List<Category> categoryList = new ArrayList<>();
         try {
