@@ -33,6 +33,7 @@ public class LoginController {
     LoginService loginService;
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Customer> signup(@RequestBody Customer customer) {
         try {
             loginService.signUp(customer);
@@ -45,7 +46,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-
+    @CrossOrigin(origins = "http://localhost:3000")
     public Customer login(@RequestParam String companyName, @RequestParam String password) {
         Customer customer = null;
         System.out.println("Company name is" + companyName + " and password is " + password);
