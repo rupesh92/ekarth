@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by rupesh on 01/09/17.
@@ -43,30 +44,29 @@ public class LoginService {
     }
 
 
-    public Customer login(String companyName, String password) throws NoSuchFieldException, InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
-        //TODO: Update to use selector
+    public Optional<Customer> login(String companyName, String password) throws NoSuchFieldException, InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
         Field companyNameField = Customer.class.getDeclaredField("companyName");
-//        Field passwordDisgestField = Customer.class.getDeclaredField("passwordDigest");
         List<Field> fields = new ArrayList<>();
         fields.add(companyNameField);
-//        fields.add(passwordDisgestField);
 
         List<Object> values = new ArrayList<>();
         values.add(companyName);
-//        values.add(password);
 
         DatabaseSelector<Customer> databaseSelector= new DatabaseSelector<>(Customer.class, encryptor, fields,values );
         List<Customer> customers = databaseSelector.selectObjects();
 
         if(customers.size()>1){
-            System.out.println("Something bad has happened with our database");
+            System.out.println("Something bad has happened with our database, " +
+                    "there are more than 1 companies with this name");
+            return Optional.empty();
         }
 
         if(customers.isEmpty() || !encryptor.getbCryptPasswordEncoder().matches(password, customers.get(0).getPasswordDigest())){
-            System.out.println("no customer like that dude!");
+            System.out.println("No customer like that dude!");
+            return Optional.empty();
         }
 
-        return customers.get(0);
+        return Optional.of(customers.get(0));
 
     }
 }

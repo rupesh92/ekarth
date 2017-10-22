@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  "image": ["image1","image2"]
  },
  "category": {
- "name": "Bottomwear",
+ "name": "Bottom Wear",
  "companyId": 1
  },
  "propertyList" :[{

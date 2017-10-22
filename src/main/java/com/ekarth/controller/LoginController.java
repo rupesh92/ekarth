@@ -13,19 +13,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
  * Created by rupesh on 01/09/17.
- *
+ * <p>
  * Sample input:
- {
- "name": "Shiwangi",
- "companyName": "Ekarth",
- "contactNumber":"834857632",
- "emailId": "shiwangishah93@gmail.com",
- "passwordDigest": "godbachao"
- }
+ * {
+ * "name": "Shiwangi",
+ * "companyName": "Ekarth",
+ * "contactNumber":"834857632",
+ * "emailId": "shiwangishah93@gmail.com",
+ * "passwordDigest": "godbachao"
+ * }
  */
 @RestController
 @RequestMapping(value = "api/v1")
@@ -54,18 +55,23 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
-    public LoginResponse login(@RequestParam String companyName, @RequestParam String password) {
+    public ResponseEntity<LoginResponse> login(@RequestParam String companyName, @RequestParam String password) {
         Customer customer = null;
         List<Category> categoryList = null;
         System.out.println("Company name is" + companyName + " and password is " + password);
         try {
-            customer = loginService.login(companyName, password);
-
-            categoryList = categoryService.getAllCategories(customer.getCustId());
+            Optional<Customer> customerOptional = loginService.login(companyName, password);
+            if (customerOptional.isPresent()) {
+                customer = customerOptional.get();
+                categoryList = categoryService.getAllCategories(customer.getCustId());
+            } else {
+                return new ResponseEntity<LoginResponse>(HttpStatus.NO_CONTENT);
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity<LoginResponse>(HttpStatus.BAD_REQUEST);
         }
-        return new LoginResponse(customer,categoryList);
+        return new ResponseEntity<LoginResponse>(new LoginResponse(customer, categoryList), HttpStatus.OK);
     }
 
     //Add support for forgot password too
