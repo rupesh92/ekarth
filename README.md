@@ -6,7 +6,7 @@
       
 <strong> delete table </strong>
 
-      DROP TABLE CUSTOMER;
+      DROP TABLE SELLER;
       
       
 <strong> Create user table </strong>
@@ -27,7 +27,7 @@
                 
         );
 
-        ALTER TABLE CUSTOMER ADD passwordDigest VARCHAR(100);
+        ALTER TABLE SELLER ADD passwordDigest VARCHAR(100);
         
         CREATE TABLE CATEGORY(
 
