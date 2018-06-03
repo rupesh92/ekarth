@@ -24,10 +24,10 @@ public class CategoriesController {
 
     @RequestMapping(value = "getCategories", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<List<Category>> getCategories(@RequestParam int custId) {
+    public ResponseEntity<List<Category>> getCategories(@RequestParam int id) {
         List<Category> categoryList = new ArrayList<>();
         try {
-            categoryList = categoryService.getAllCategories(custId);
+            categoryList = categoryService.getAllCategories(id);
         } catch (Exception e) {
             logger.error("We could not add your details due to ", e.getMessage());
             e.printStackTrace();

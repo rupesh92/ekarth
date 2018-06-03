@@ -22,13 +22,13 @@ public class CategoryService {
     @Autowired
     Encryptor encryptor;
 
-    public List<Category> getAllCategories(int custId) throws NoSuchFieldException, InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
+    public List<Category> getAllCategories(int id) throws NoSuchFieldException, InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
         Field companyIdField = Category.class.getDeclaredField("companyId");
         List<Field> fields = new ArrayList<>();
         fields.add(companyIdField);
 
         List<Object> values = new ArrayList<>();
-        values.add(custId);
+        values.add(id);
 
         DatabaseSelector<Category> databaseSelector = new DatabaseSelector<>(Category.class, encryptor, fields, values);
         List<Category> categories = databaseSelector.selectObjects();

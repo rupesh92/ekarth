@@ -11,9 +11,9 @@
       
 <strong> Create user table </strong>
 
-       CREATE TABLE CUSTOMER(
+       CREATE TABLE SELLER(
 
-                custId   INT NOT NULL AUTO_INCREMENT,
+                id   INT NOT NULL AUTO_INCREMENT,
                 
                 name VARCHAR(40) NOT NULL,
                 
@@ -23,7 +23,7 @@
                 
                 contactNumber VARCHAR(40) NOT NULL,
                 
-                PRIMARY KEY (custId)
+                PRIMARY KEY (id)
                 
         );
 

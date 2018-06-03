@@ -54,14 +54,14 @@ public class WelcomeController {
 //	public String signup() throws InvocationTargetException, SQLException, IntrospectionException, InstantiationException, IllegalAccessException {
 //
 //		//TODO: Show a form on this link. and from the input - on form submit update the table (React)
-//		Customer user = new Customer(1,"sachinta","Levis", "shiwangishah93@gmail.com",
+//		Seller seller = new Seller(1,"sachinta","Levis", "shiwangishah93@gmail.com",
 //				"8348804751", "testPass");
 //
-//		DatabaseInserter<Customer> inserter = new DatabaseInserter<Customer>(
+//		DatabaseInserter<Seller> inserter = new DatabaseInserter<Seller>(
 //
-//				Customer.class);
-//		List<Customer> list = new ArrayList<>();
-//		list.add(user);
+//				Seller.class);
+//		List<Seller> list = new ArrayList<>();
+//		list.add(seller);
 //		inserter.insertObjects(list);
 //		return "success";
 //

@@ -16,9 +16,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Customer implements Serializable {
+public class Seller implements Serializable {
     @PrimaryKey
-    int custId;
+    int id;
     String name;
     String companyName;
     String contactNumber;

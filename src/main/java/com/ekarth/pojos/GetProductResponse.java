@@ -1,7 +1,7 @@
 package com.ekarth.pojos;
 
 import com.ekarth.model.Category;
-import com.ekarth.model.Customer;
+import com.ekarth.model.Seller;
 import com.ekarth.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;

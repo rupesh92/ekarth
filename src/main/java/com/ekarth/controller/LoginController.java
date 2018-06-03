@@ -1,7 +1,7 @@
 package com.ekarth.controller;
 
 import com.ekarth.model.Category;
-import com.ekarth.model.Customer;
+import com.ekarth.model.Seller;
 import com.ekarth.pojos.LoginResponse;
 import com.ekarth.service.CategoryService;
 import com.ekarth.service.LoginService;
@@ -41,29 +41,29 @@ public class LoginController {
     CategoryService categoryService;
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<Customer> signup(@RequestBody Customer customer) {
+//    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Seller> signup(@RequestBody Seller seller) {
         try {
-            loginService.signUp(customer);
+            loginService.signUp(seller);
         } catch (Exception e) {
             logger.error("We could not add your details due to ", e.getMessage());
             e.printStackTrace();
         }
 
-        return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+        return new ResponseEntity<Seller>(seller, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<LoginResponse> login(@RequestParam String companyName, @RequestParam String password) {
-        Customer customer = null;
+        Seller seller = null;
         List<Category> categoryList = null;
         System.out.println("Company name is" + companyName + " and password is " + password);
         try {
-            Optional<Customer> customerOptional = loginService.login(companyName, password);
-            if (customerOptional.isPresent()) {
-                customer = customerOptional.get();
-                categoryList = categoryService.getAllCategories(customer.getCustId());
+            Optional<Seller> sellerOptional = loginService.login(companyName, password);
+            if (sellerOptional.isPresent()) {
+                seller = sellerOptional.get();
+                categoryList = categoryService.getAllCategories(seller.getCustId());
             } else {
                 return new ResponseEntity<LoginResponse>(HttpStatus.NO_CONTENT);
             }
@@ -71,7 +71,7 @@ public class LoginController {
             e.printStackTrace();
             return new ResponseEntity<LoginResponse>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<LoginResponse>(new LoginResponse(customer, categoryList), HttpStatus.OK);
+        return new ResponseEntity<LoginResponse>(new LoginResponse(seller, categoryList), HttpStatus.OK);
     }
 
     //Add support for forgot password too
